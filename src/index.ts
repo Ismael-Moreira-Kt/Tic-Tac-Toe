@@ -20,4 +20,14 @@ class TicTacToe {
     private cursorX: number = 0;
     private cursorY: number = 0;
     private rl: readline.Interface;
+
+
+    constructor() {
+        this.rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+    
+        this.setup();
+    }
 }
