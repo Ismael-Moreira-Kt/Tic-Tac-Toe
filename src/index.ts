@@ -27,7 +27,17 @@ class TicTacToe {
             input: process.stdin,
             output: process.stdout
         });
-    
+        this.showInstructions();
+    }
+
+
+    private showInstructions(): void {
+        console.log("Welcome to Tic-Tac-Toe!");
+        console.log("Use 'w', 'a', 's', 'd' to move the cursor.");
+        console.log("Press 'e' to make a move.");
+        console.log("Press 'q' to quit the game.");
+        console.log();
+
         this.setup();
     }
 
@@ -65,14 +75,51 @@ class TicTacToe {
                 break;
         }
 
+        if (this.checkForWin() || this.checkForDraw()) {
+            this.rl.removeAllListeners('line');
+            this.promptReplay();
+
+            return;
+        }
+
+        if (this.currentPlayer === Player.O) {
+            setTimeout(() => this.robotMove(), 100);
+        }
+
         this.render();
+    }
+
+
+    private makeMove(x: number, y: number): void {
+        if (this.board[y][x] === Player.NONE) {
+            this.board[y][x] = this.currentPlayer;
+            this.currentPlayer = this.currentPlayer === Player.X ? Player.O : Player.X;
+        }
+    }
+
+
+    private robotMove(): void {
+        let availableMoves: [number, number][] = [];
+
+        for (let y = 0; y < 3; y++) {
+            for (let x = 0; x < 3; x++) {
+                if (this.board[y][x] === Player.NONE) {
+                    availableMoves.push([x, y]);
+                }
+            }
+        }
+
+        if (availableMoves.length > 0) {
+            const [x, y] = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+            this.makeMove(x, y);
+        }
     }
 
 
     private render(): void {
         console.clear();
         console.log('  0 1 2');
-
+        
         this.board.forEach((row, y) => {
             process.stdout.write(`${y} `);
             
@@ -86,12 +133,12 @@ class TicTacToe {
                 
                 if (x < 2) process.stdout.write('|');
             });
-
+            
             console.log();
             
             if (y < 2) console.log('  ---|---|---');
         });
-        
+
         console.log(`Current Player: ${this.currentPlayer}`);
     }
 
@@ -109,15 +156,16 @@ class TicTacToe {
             [[0, 0], [1, 1], [2, 2]],
             [[0, 2], [1, 1], [2, 0]]
         ];
-    
+
         for (const pattern of winPatterns) {
             const [a, b, c] = pattern;
-            
+
             if (this.board[a[1]][a[0]] !== Player.NONE &&
                 this.board[a[1]][a[0]] === this.board[b[1]][b[0]] &&
                 this.board[a[1]][a[0]] === this.board[c[1]][c[0]]) 
             {
                 console.log(`${this.board[a[1]][a[0]]} wins!`);
+
                 return true;
             }
         }
@@ -129,7 +177,7 @@ class TicTacToe {
     private checkForDraw(): boolean {
         if (this.board.flat().every(cell => cell !== Player.NONE)) {
             console.log("It's a draw!");
-            
+
             return true;
         }
 
@@ -137,47 +185,19 @@ class TicTacToe {
     }
 
 
-    private robotMove(): void {
-        let availableMoves: [number, number][] = [];
-        
-        for (let y = 0; y < 3; y++) {
-            for (let x = 0; x < 3; x++) {
-                if (this.board[y][x] === Player.NONE) {
-                    availableMoves.push([x, y]);
-                }
-            }
-        }
-
-        if (availableMoves.length > 0) {
-            const [x, y] = availableMoves[Math.floor(Math.random() * availableMoves.length)];
-            this.makeMove(x, y);
-        }
-    }
-
-
-    private makeMove(x: number, y: number): void {
-        if (this.board[y][x] === Player.NONE) {
-            this.board[y][x] = this.currentPlayer;
-            this.currentPlayer = this.currentPlayer === Player.X ? Player.O : Player.X;
-        }
-    }
-
-
     private promptReplay(): void {
         console.log("Would you like to play again? (y/n)");
-        
+    
         this.rl.on('line', (input: string) => {
             switch (input.trim().toLowerCase()) {
                 case 'y':
                     this.reset();
                     this.render();
-                    
                     break;
 
                 case 'n':
                     console.log("Thanks for playing!");
                     process.exit(0);
-
                     break;
 
                 default:
@@ -197,17 +217,6 @@ class TicTacToe {
         this.cursorX = 0;
         this.cursorY = 0;
     }
-
-
-    private showInstructions(): void {
-        console.log("Welcome to Tic-Tac-Toe!");
-        console.log("Use 'w', 'a', 's', 'd' to move the cursor.");
-        console.log("Press 'e' to make a move.");
-        console.log("Press 'q' to quit the game.");
-        console.log();
-    
-        this.setup();
-    }    
 }
 
 
