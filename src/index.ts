@@ -30,4 +30,10 @@ class TicTacToe {
     
         this.setup();
     }
+
+
+    private setup(): void {
+        this.rl.on('line', (input: string) => this.handleInput(input));
+        this.render();
+    }
 }
