@@ -135,4 +135,22 @@ class TicTacToe {
 
         return false;
     }
+
+
+    private robotMove(): void {
+        let availableMoves: [number, number][] = [];
+        
+        for (let y = 0; y < 3; y++) {
+            for (let x = 0; x < 3; x++) {
+                if (this.board[y][x] === Player.NONE) {
+                    availableMoves.push([x, y]);
+                }
+            }
+        }
+        
+        if (availableMoves.length > 0) {
+            const [x, y] = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+            this.makeMove(x, y);
+        }
+    }    
 }
