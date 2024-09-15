@@ -177,4 +177,16 @@ class TicTacToe {
             }
         });
     }
+
+
+    private reset(): void {
+        this.board = [
+            [Player.NONE, Player.NONE, Player.NONE],
+            [Player.NONE, Player.NONE, Player.NONE],
+            [Player.NONE, Player.NONE, Player.NONE]
+        ];
+        this.currentPlayer = Player.X;
+        this.cursorX = 0;
+        this.cursorY = 0;
+    }
 }
