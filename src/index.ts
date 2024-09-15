@@ -93,5 +93,35 @@ class TicTacToe {
         });
         
         console.log(`Current Player: ${this.currentPlayer}`);
-    }    
+    }
+
+
+    private checkForWin(): boolean {
+        const winPatterns = [
+            [[0, 0], [0, 1], [0, 2]],
+            [[1, 0], [1, 1], [1, 2]],
+            [[2, 0], [2, 1], [2, 2]],
+
+            [[0, 0], [1, 0], [2, 0]],
+            [[0, 1], [1, 1], [2, 1]],
+            [[0, 2], [1, 2], [2, 2]],
+
+            [[0, 0], [1, 1], [2, 2]],
+            [[0, 2], [1, 1], [2, 0]]
+        ];
+    
+        for (const pattern of winPatterns) {
+            const [a, b, c] = pattern;
+            
+            if (this.board[a[1]][a[0]] !== Player.NONE &&
+                this.board[a[1]][a[0]] === this.board[b[1]][b[0]] &&
+                this.board[a[1]][a[0]] === this.board[c[1]][c[0]]) 
+            {
+                console.log(`${this.board[a[1]][a[0]]} wins!`);
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
