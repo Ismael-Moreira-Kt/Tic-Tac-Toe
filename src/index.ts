@@ -147,10 +147,34 @@ class TicTacToe {
                 }
             }
         }
-        
+
         if (availableMoves.length > 0) {
             const [x, y] = availableMoves[Math.floor(Math.random() * availableMoves.length)];
             this.makeMove(x, y);
         }
-    }    
+    }
+
+
+    private promptReplay(): void {
+        console.log("Would you like to play again? (y/n)");
+        
+        this.rl.on('line', (input: string) => {
+            switch (input.trim().toLowerCase()) {
+                case 'y':
+                    this.reset();
+                    this.render();
+                    
+                    break;
+
+                case 'n':
+                    console.log("Thanks for playing!");
+                    process.exit(0);
+
+                    break;
+
+                default:
+                    console.log("Invalid option. Please enter 'y' or 'n'.");
+            }
+        });
+    }
 }
