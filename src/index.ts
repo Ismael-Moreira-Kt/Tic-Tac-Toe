@@ -155,6 +155,14 @@ class TicTacToe {
     }
 
 
+    private makeMove(x: number, y: number): void {
+        if (this.board[y][x] === Player.NONE) {
+            this.board[y][x] = this.currentPlayer;
+            this.currentPlayer = this.currentPlayer === Player.X ? Player.O : Player.X;
+        }
+    }
+
+
     private promptReplay(): void {
         console.log("Would you like to play again? (y/n)");
         
