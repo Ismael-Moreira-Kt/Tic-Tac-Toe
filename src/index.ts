@@ -189,4 +189,15 @@ class TicTacToe {
         this.cursorX = 0;
         this.cursorY = 0;
     }
+
+
+    private showInstructions(): void {
+        console.log("Welcome to Tic-Tac-Toe!");
+        console.log("Use 'w', 'a', 's', 'd' to move the cursor.");
+        console.log("Press 'e' to make a move.");
+        console.log("Press 'q' to quit the game.");
+        console.log();
+    
+        this.setup();
+    }    
 }
