@@ -16,4 +16,8 @@ class TicTacToe {
         [Player.NONE, Player.NONE, Player.NONE],
         [Player.NONE, Player.NONE, Player.NONE]
     ];
+    private currentPlayer: Player = Player.X;
+    private cursorX: number = 0;
+    private cursorY: number = 0;
+    private rl: readline.Interface;
 }
