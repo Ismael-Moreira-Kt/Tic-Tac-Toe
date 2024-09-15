@@ -64,7 +64,34 @@ class TicTacToe {
                 process.exit(0);
                 break;
         }
-        
+
         this.render();
     }
+
+
+    private render(): void {
+        console.clear();
+        console.log('  0 1 2');
+
+        this.board.forEach((row, y) => {
+            process.stdout.write(`${y} `);
+            
+            row.forEach((cell, x) => {
+                if (x === this.cursorX && y === this.cursorY) {
+                    process.stdout.write(`[${cell}]`);
+                } 
+                else {
+                    process.stdout.write(` ${cell} `);
+                }
+                
+                if (x < 2) process.stdout.write('|');
+            });
+
+            console.log();
+            
+            if (y < 2) console.log('  ---|---|---');
+        });
+        
+        console.log(`Current Player: ${this.currentPlayer}`);
+    }    
 }
