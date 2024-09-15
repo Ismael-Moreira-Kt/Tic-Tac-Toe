@@ -209,3 +209,7 @@ class TicTacToe {
         this.setup();
     }    
 }
+
+
+
+new TicTacToe();
