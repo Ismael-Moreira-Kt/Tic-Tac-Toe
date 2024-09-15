@@ -36,4 +36,35 @@ class TicTacToe {
         this.rl.on('line', (input: string) => this.handleInput(input));
         this.render();
     }
+
+
+    private handleInput(input: string): void {
+        switch (input.trim()) {
+            case 'w':
+                if (this.cursorY > 0) this.cursorY--;
+                break;
+
+            case 's':
+                if (this.cursorY < 2) this.cursorY++;
+                break;
+
+            case 'a':
+                if (this.cursorX > 0) this.cursorX--;
+                break;
+
+            case 'd':
+                if (this.cursorX < 2) this.cursorX++;
+                break;
+
+            case 'e':
+                this.makeMove(this.cursorX, this.cursorY);
+                break;
+
+            case 'q':
+                process.exit(0);
+                break;
+        }
+        
+        this.render();
+    }
 }
