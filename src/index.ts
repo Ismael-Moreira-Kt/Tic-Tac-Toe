@@ -124,4 +124,15 @@ class TicTacToe {
 
         return false;
     }
+
+
+    private checkForDraw(): boolean {
+        if (this.board.flat().every(cell => cell !== Player.NONE)) {
+            console.log("It's a draw!");
+            
+            return true;
+        }
+
+        return false;
+    }
 }
