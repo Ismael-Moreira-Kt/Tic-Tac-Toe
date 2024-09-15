@@ -7,3 +7,13 @@ enum Player {
     X = 'X',
     O = 'O'
 }
+
+
+
+class TicTacToe {
+    private board: Player[][] = [
+        [Player.NONE, Player.NONE, Player.NONE],
+        [Player.NONE, Player.NONE, Player.NONE],
+        [Player.NONE, Player.NONE, Player.NONE]
+    ];
+}
